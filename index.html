@@ -9,7 +9,10 @@
     <h1>Test</h1>
     <script>
         document.addEventListener('DOMContentLoaded', ()=>{
-            document.querySelector('h1').innerText = 'Working';
+            setTimeout(() => {
+                document.querySelector('h1').innerText = 'Working';
+            }, 500)
+            
         })
     </script>
 </body>
