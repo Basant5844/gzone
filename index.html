@@ -3,17 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GST Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .invoice-box {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 800px;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header .logo {
+            width: 150px;
+            height: 100px;
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .header .invoice-title {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        h2 {
+            margin: 0;
+        }
+        .company-info, .customer-info, .invoice-details {
+            margin-bottom: 20px;
+        }
+        .customer-info, .invoice-details {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .words-column {
+            width: 60%; /* Adjust the width to give more space to the "words" field */
+        }
+        .summary, .details-section {
+            margin-top: 20px;
+        }
+        .bank-details {
+            width: 100%;
+            padding-right: 0px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            
+        }
+        .bank-details strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -26px;
+        }
+        .customer-sign, .company-sign {
+            width: 45%;
+            text-align: center;
+        }
+        .company-sign strong {
+            display: block;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .signature-line {
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Test</h1>
-    <script>
-        document.addEventListener('DOMContentLoaded', ()=>{
-            setTimeout(() => {
-                document.querySelector('h1').innerText = 'Working';
-            }, 500)
-            
-        })
-    </script>
+
+<div class="invoice-box">
+    <!-- Header with Logo and Invoice Title -->
+    <div class="header">
+        <div class="logo">
+            <!-- Placeholder for Logo -->
+            <img src="logo.png" alt="Company Logo">
+        </div>
+        <div class="invoice-title">
+            <h2>TAX INVOICE</h2>
+        </div>
+    </div>
+
+    <!-- Company Info -->
+    <div class="company-info">
+        <strong>Green Zone Airconditioning</strong><br>
+        SAIDNAGAR, LAHERIASARAI, DARBHANGA-846001<br>
+        GST No.: 10FGBPK6982H1ZD
+    </div>
+
+    <!-- Invoice Details -->
+    <div class="invoice-details">
+        <table>
+            <tr>
+                <td><strong>Invoice No</strong>: ABC123</td>
+                <td><strong>Date</strong>: 01/01/2024</td>
+                <td><strong>PO No</strong>: PO456</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Customer Info -->
+    <div class="customer-info">
+        <table>
+            <tr>
+                <td><strong>Billed To</strong>: Dr. Anamika Sinha</td>
+                <td><strong>Delivered To</strong>: Dr. Anamika Sinha</td>
+            </tr>
+            <tr>
+                <td>SAIDNAGAR, LAHERIASARAI, DARBHANGA-846003</td>
+                <td>SAIDNAGAR, LAHERIASARAI, DARBHANGA-846003</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Products Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Item Description</th>
+                <th>HSN</th>
+                <th>Qnty</th>
+                <th>Unit</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Air Conditioner</td>
+                <td>2</td>
+                <td>2</td>
+                <td>₹30,000</td>
+                <td>₹60,000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Installation</td>
+                <td>1</td>
+                <td>1</td>
+                <td>₹5,000</td>
+                <td>₹5,000</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Summary -->
+    <div class="summary">
+        <table>
+            <tr>
+                <td colspan="3"><strong>Total</strong></td>
+                <td>₹65,000</td>
+            </tr>
+            <tr>
+                <td colspan="3"><strong>GST (18%)</strong></td>
+                <td>₹11,700</td>
+            </tr>
+            <tr>
+                <td colspan="3"><strong>Grand Total</strong></td>
+                <td>₹76,700</td>
+            </tr>
+            <tr>
+                <td><strong>Amount In Words</strong></td>
+                <td colspan="3" class="words-column"><strong>Sixty-five thousand rupees only</strong></td> <!-- More space for words -->
+            </tr>
+        </table>
+    </div>
+
+    <div class="bank-details">
+        <strong>BANK DETAILS:</strong>
+        BANK NAME: PUNJAB NATIONAL BANK<br>
+        A/C HOLDER NAME: GREEN ZONE AIRCONDITIONING<br>
+        A/C NO.: 6913002100001889<br>
+        IFSC CODE: PUNB06901300<br><br>
+        <!-- <strong>Payment details made against this invoice is as under</strong><br>
+        <table>
+            <tr>
+                <td>Cheque / DD No. :</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Cheque / DD Date:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Deductions, if any:</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Customer's TIN No.:</td>
+                <td></td>
+            </tr>
+        </table> -->
+    </div>
+
+    <!-- Signature Section Side by Side -->
+    <div class="signature-section">
+        <div class="customer-sign">
+            <br>
+            For Customer:
+            <div class="signature-line">(Name, Signature & Stamp)</div>
+        </div>
+
+        <div class="company-sign">
+            <br>
+            For Green Zone Airconditioning:
+            <strong>Adity Kumar</strong>
+            <strong>Mb- 7280044009</strong>
+            <div class="signature-line">(Name, Signature & Stamp)</div>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>
