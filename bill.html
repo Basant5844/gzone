@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .invoice-box {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 800px;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header .logo {
+            width: 150px;
+            height: 100px;
+            /* background-color: #f2f2f2; */
+            /* border: 1px solid #ddd; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .header .invoice-title {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        h2 {
+            margin: 0;
+        }
+        .company-info, .customer-info, .invoice-details {
+            margin-bottom: 20px;
+        }
+        .customer-info, .invoice-details {
+            border: 1px solid #ccc;
+            padding: 0px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .words-column {
+            width: 60%; /* Adjust the width to give more space to the "words" field */
+        }
+        .summary, .details-section {
+            margin-top: 20px;
+        }
+        .bank-details {
+            width: 100%;
+            padding-right: 0px;
+            margin-bottom: 0px;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+        .bank-details strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -14px;
+            font-size: 12px;
+        }
+        .customer-sign, .company-sign {
+            width: 45%;
+            text-align: center;
+        }
+        .company-sign strong {
+            display: block;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .signature-line {
+            margin-top: 40px;
+        }
+        #addressbill{
+            width:100%;
+        }
+        #addressdilivered{
+            width:100%;
+        }
+        .heading{
+            font-size: 22px;
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invoice-box" id="printable_div_id">
+        <!-- Header with Logo and Invoice Title -->
+        <div class="header">
+            <div class="logo">
+                <!-- Placeholder for Logo -->
+                <img src="gzlogo.png" alt="Company Logo">
+            </div>
+            <div class="invoice-title">
+                <h2 style="color:red;">TAX INVOICE</h2>
+            </div>
+        </div>
+    
+        <!-- Company Info -->
+        <div class="company-info">
+            <strong class="heading">Green Zone Airconditioning</strong><br>
+            SAIDNAGAR, LAHERIASARAI, DARBHANGA-846001<br>
+            GST No.: 10FGBPK6982H1ZD
+        </div>
+    
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <table>
+                <tr>
+                    <td><strong>Invoice No</strong>:<input type="text" id="invoiceno"/></td>
+                    <td><strong>Date</strong>: <input type="date" id="date"/></td>
+                    <!-- <td><strong>PO No</strong>: PO456</td> -->
+                </tr>
+            </table>
+        </div>
+    
+        <!-- Customer Info -->
+        <div class="customer-info">
+            <table>
+                <tr>
+                    <td><strong>Billed To</strong>: <input type="text" id="namebill"/></td>
+                    <td><strong>Delivered To</strong>: <input type="text" id="namedilivered"/></td>
+                </tr>
+                <tr>
+                    <td><textarea id="addressbill"></textarea></td>
+                    <td><textarea id="addressdilivered"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    
+        <!-- Products Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item Description</th>
+                    <th>HSN</th>
+                    <th>Qnty</th>
+                    <th>Unit</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" id="desc1" style="width:100%;"/></td>
+                    <td rowspan="5" style="text-align: center;">8415</td>
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty1" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price1" oninput="calculateTotal()"/></td>
+                    <td><span id="total1">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="text" id="desc2" style="width:100%;"/></td>
+                    <!-- <td>1</td> -->
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty2" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price2" oninput="calculateTotal()"/></td>
+                    <td><span id="total2">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><input type="text" id="desc3" style="width:100%;"/></td>
+                    <!-- <td>1</td> -->
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty3" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price3" oninput="calculateTotal()"/></td>
+                    <td><span id="total3">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><input type="text" id="desc4" style="width:100%;"/></td>
+                    <!-- <td>1</td> -->
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty4" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price4" oninput="calculateTotal()"/></td>
+                    <td><span id="total4">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><input type="text" id="desc5" style="width:100%;"/></td>
+                    <!-- <td>1</td> -->
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty5" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price5" oninput="calculateTotal()"/></td>
+                    <td><span id="total5">₹0</span></td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <!-- Summary -->
+        <div class="summary">
+            <table>
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td><span id="subTotal">₹0</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>GST (18%)</strong></td>
+                    <td><span id="gstTotal">₹0</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Grand Total</strong></td>
+                    <td><span id="grandTotal">₹0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Amount In Words</strong></td>
+                    <td colspan="3" class="words-column"><strong id="amountWords">Zero rupees only</strong></td>
+                </tr>
+            </table>
+        </div>
+    
+        <div class="bank-details">
+            <strong style="color:red;">BANK DETAILS:</strong>
+            BANK NAME: PUNJAB NATIONAL BANK<br>
+            A/C HOLDER NAME: GREEN ZONE AIRCONDITIONING<br>
+            A/C NO.: 6913002100001889<br>
+            IFSC CODE: PUNB06901300<br><br>
+        </div>
+    <hr/>
+        <!-- Signature Section Side by Side -->
+        <div class="signature-section">
+            <div class="customer-sign">
+                <br>
+                For Customer:
+                <div class="signature-line">(Name, Signature & Stamp)</div>
+            </div>
+    
+            <div class="company-sign">
+                <br>
+                For Green Zone Airconditioning:
+                <strong>Adity Kumar &nbsp; Mb- 7280044009</strong>
+                <div class="signature-line">(Name, Signature & Stamp)</div>
+            </div>
+        </div>
+    
+    </div>
+    <button onClick="printdiv('printable_div_id');">PRINT</button>
+    <button onclick="noGst();">NO GST</button>
+    
+    <script>
+        function calculateTotal() {
+            let subTotal = 0;
+    
+            // Calculate individual totals and sum them
+            for (let i = 1; i <= 5; i++) {
+                let qty = document.getElementById('qty' + i).value || 0;
+                let price = document.getElementById('price' + i).value || 0;
+                let total = qty * price;
+                document.getElementById('total' + i).innerText = '₹' + total.toFixed(2);
+                subTotal += total;
+            }
+    
+            // Update Subtotal, GST, and Grand Total
+            let gst = subTotal * 0.18;
+            let grandTotal = subTotal + gst;
+    
+            document.getElementById('subTotal').innerText = '₹' + subTotal.toFixed(2);
+            document.getElementById('gstTotal').innerText = '₹' + gst.toFixed(2);
+            document.getElementById('grandTotal').innerText = '₹' + grandTotal.toFixed(2);
+    
+            // Convert the grand total to words
+            document.getElementById('amountWords').innerText = convertNumberToWords(grandTotal) + ' rupees only';
+        }
+    
+        function convertNumberToWords(amount) {
+            const units = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+            const teens = ["Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+            const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+            const thousands = ["", "Thousand", "Lakh", "Crore"];
+    
+            let word = '';
+    
+            function getBelowThousand(number) {
+                let output = '';
+    
+                if (number > 99) {
+                    output += units[Math.floor(number / 100)] + ' Hundred ';
+                    number %= 100;
+                }
+                if (number > 10 && number < 20) {
+                    output += teens[number - 11] + ' ';
+                } else {
+                    output += tens[Math.floor(number / 10)] + ' ';
+                    output += units[number % 10] + ' ';
+                }
+                return output.trim();
+            }
+    
+            let integerPart = Math.floor(amount);
+            let decimalPart = Math.round((amount - integerPart) * 100);
+    
+            // Process thousands, lakhs, crores
+            let i = 0;
+            while (integerPart > 0) {
+                let chunk = integerPart % 1000;
+                if (chunk) {
+                    word = getBelowThousand(chunk) + ' ' + thousands[i] + ' ' + word;
+                }
+                integerPart = Math.floor(integerPart / 1000);
+                i++;
+            }
+    
+            word = word.trim() || "Zero";
+            if (decimalPart > 0) {
+                word += ' and ' + getBelowThousand(decimalPart) + ' Paise';
+            }
+    
+            return word.trim();
+        }
+    
+        function printdiv(elem) {
+            // Get the values from the input fields
+            var invoiceNo = document.getElementById('invoiceno').value;
+            var date = document.getElementById('date').value;
+            var addressBill = document.getElementById('addressbill').value; // For textarea
+            var nameBill = document.getElementById('namebill').value;
+            var addressDelivered = document.getElementById('addressdilivered').value;
+            var nameDelivered = document.getElementById('namedilivered').value;
+
+            var desc_1 = document.getElementById('desc1').value;
+            var desc_2 = document.getElementById('desc2').value;
+            var desc_3 = document.getElementById('desc3').value;
+            var desc_4 = document.getElementById('desc4').value;
+            var desc_5 = document.getElementById('desc5').value;
+
+            var qty_1 = document.getElementById('qty1').value;
+            var qty_2 = document.getElementById('qty2').value;
+            var qty_3 = document.getElementById('qty3').value;
+            var qty_4 = document.getElementById('qty4').value;
+            var qty_5 = document.getElementById('qty5').value;
+
+            var price_1 = document.getElementById('price1').value;
+            var price_2 = document.getElementById('price2').value;
+            var price_3 = document.getElementById('price3').value;
+            var price_4 = document.getElementById('price4').value;
+            var price_5 = document.getElementById('price5').value;
+    
+            // Replace the input and textarea fields with their values in the document
+            document.getElementById('invoiceno').outerHTML = '<span>' + invoiceNo + '</span>';
+            document.getElementById('date').outerHTML = '<span>' + date + '</span>';
+            document.getElementById('addressbill').outerHTML = '<span>' + addressBill.replace(/\n/g, '<br>') + '</span>'; // handle newlines in textarea
+            document.getElementById('namebill').outerHTML = '<span>' + nameBill + '</span>';
+            document.getElementById('addressdilivered').outerHTML = '<span>' + addressDelivered + '</span>';
+            document.getElementById('namedilivered').outerHTML = '<span>' + nameDelivered + '</span>';
+
+            document.getElementById('desc1').outerHTML = '<span>' + desc_1 + '</span>';
+            document.getElementById('desc2').outerHTML = '<span>' + desc_2 + '</span>';
+            document.getElementById('desc3').outerHTML = '<span>' + desc_3 + '</span>';
+            document.getElementById('desc4').outerHTML = '<span>' + desc_4 + '</span>';
+            document.getElementById('desc5').outerHTML = '<span>' + desc_5 + '</span>';
+
+            document.getElementById('qty1').outerHTML = '<span>' + qty_1 + '</span>';
+            document.getElementById('qty2').outerHTML = '<span>' + qty_2 + '</span>';
+            document.getElementById('qty3').outerHTML = '<span>' + qty_3 + '</span>';
+            document.getElementById('qty4').outerHTML = '<span>' + qty_4 + '</span>';
+            document.getElementById('qty5').outerHTML = '<span>' + qty_5 + '</span>';
+
+            document.getElementById('price1').outerHTML = '<span>' + price_1 + '</span>';
+            document.getElementById('price2').outerHTML = '<span>' + price_2 + '</span>';
+            document.getElementById('price3').outerHTML = '<span>' + price_3 + '</span>';
+            document.getElementById('price4').outerHTML = '<span>' + price_4 + '</span>';
+            document.getElementById('price5').outerHTML = '<span>' + price_5 + '</span>';
+    
+            // Continue with the printing
+            var header_str = '<html><head><title>' + document.title + '</title></head><body>';
+            var footer_str = '</body></html>';
+            var new_str = document.getElementById(elem).innerHTML;
+            var old_str = document.body.innerHTML;
+            document.body.innerHTML = header_str + new_str + footer_str;
+            window.print();
+            document.body.innerHTML = old_str;
+            return false;
+        }
+        function noGst(){
+            window.location.href = "nogst.html";
+        }
+    </script>
+    </body>
+    </html>
