@@ -250,6 +250,7 @@
         </div>
     </div>
     <button onClick="printdiv('printable_div_id');">PRINT</button>
+    <button onClick="ongst();">GST</button>
 <script>
 function calculateTotal() {
     let qty1 = document.getElementById('qty1').value || 0;
@@ -364,6 +365,9 @@ function printdiv(elem) {
             document.body.innerHTML = old_str;
             return false;
         }
+    function ongst(){
+window.location.href = "bill.html";
+    }
 </script>
 
 </body>
