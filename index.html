@@ -121,19 +121,22 @@
 </div>
 
 <script>
-    function submitLogin() {
-        var user_value = "sunny";
-        var pswd_value = "123";
-   
-        var user_input = document.getElementById("userr").value;
-        var pswd_input = document.getElementById("pswdd").value;
+  
 
-        if(user_value === user_input && pswd_value === pswd_input) {
-            window.location.href = "bill.html";
-        } else {
-            alert('Wrong Username or Password');
-        }
+  function submitLogin() {
+    var user_value = "sunny";
+    var pswd_value = "123";
+
+    var user_input = document.getElementById("userr").value;
+    var pswd_input = document.getElementById("pswdd").value;
+
+    if (user_value === user_input && pswd_value === pswd_input) {
+        sessionStorage.setItem('loggedIn', true); // Set session data
+        window.location.href = "bill.html"; // Redirect to bill page
+    } else {
+        alert('Wrong Username or Password');
     }
+}
 </script>
 
 </body>
