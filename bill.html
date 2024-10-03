@@ -410,5 +410,17 @@
             window.location.href = "nogst.html";
         }
     </script>
+     <script>
+        function logout() {
+            sessionStorage.clear(); // Clear session data
+            window.location.href = "index.html"; // Redirect to login page
+        }
+
+        window.onload = function() {
+            if (!sessionStorage.getItem('loggedIn')) {
+                window.location.href = "index.html"; // Redirect if not logged in
+            }
+        };
+    </script>
     </body>
     </html>
