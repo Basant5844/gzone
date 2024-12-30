@@ -271,6 +271,8 @@
     </div>
     <button onClick="printdiv('printable_div_id');" style="color: white;background-color: #e22b2b;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">PRINT</button>
    <button onclick="noGst();" style="color: white;background-color: blueviolet;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">NO GST</button>
+    <button onclick="quotnoGst();" style="color: white;background-color: blueviolet;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">QUOTATION-NO-GST</button>
+    
 
     <button onclick="logout();" style="background-color: cadetblue;color: white;background-color: #04AA6D !important;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">Log Out</button>
     
@@ -410,6 +412,9 @@
         }
         function noGst(){
             window.location.href = "nogst.html";
+        }
+        function quotnoGst(){
+                 window.location.href = "quotation.html";
         }
     </script>
      <script>
