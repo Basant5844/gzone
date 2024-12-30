@@ -1,1 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUOTATION Without GST</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .invoice-box {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 800px;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header .logo {
+            width: 150px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .header .invoice-title {
+            text-align: right;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        h2 {
+            margin: 0;
+        }
+        .company-info, .customer-info, .invoice-details {
+            margin-bottom: 20px;
+        }
+        .customer-info, .invoice-details {
+            border: 1px solid #ccc;
+            padding: 0px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .words-column {
+            width: 60%;
+        }
+        .summary, .details-section {
+            margin-top: 20px;
+        }
+        .bank-details {
+            width: 100%;
+            padding-right: 0px;
+            margin-bottom: 0px;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+        .bank-details strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: -14px;
+            font-size: 12px;
+        }
+        .customer-sign, .company-sign {
+            width: 45%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .company-sign strong {
+            display: block;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        .signature-line {
+            margin-top: 40px;
+        }
+        #addressbill{
+            width:100%;
+        }
+        #addressdilivered{
+            width:100%;
+        }
+        .heading{
+            font-size: 22px;
+            color:blue;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="invoice-box" id="printable_div_id">
+        <!-- Header with Logo and Invoice Title -->
+        <div class="header">
+            <div class="logo">
+                <img src="gzlogo.png" alt="Company Logo">
+            </div>
+            <div class="invoice-title">
+                <h2 style="color:red;">QUOTATION</h2>
+            </div>
+        </div>
+    
+        <!-- Company Info -->
+        <div class="company-info">
+            <strong class="heading">Green Zone Airconditioning</strong><br>
+            SAIDNAGAR, LAHERIASARAI, DARBHANGA-846001<br>
+        </div>
+    
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <table>
+                <tr>
+                    <td><strong>Invoice No</strong>: <input type="text" id="invoiceno"/></td>
+                    <td><strong>Date</strong>: <input type="date" id="date"/></td>
+                </tr>
+            </table>
+        </div>
+    
+        <!-- Customer Info -->
+        <div class="customer-info">
+            <table>
+                <tr>
+                    <td><strong>Billed To</strong>: <input type="text" id="namebill"/></td>
+                    <td><strong>Delivered To</strong>: <input type="text" id="namedilivered"/></td>
+                </tr>
+                <tr>
+                    <td><textarea id="addressbill"></textarea></td>
+                    <td><textarea id="addressdilivered"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    
+        <!-- Products Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item Description</th>
+                    <th>HSN</th>
+                    <th>Unit</th>
+                    <th>Qnty</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" id="desc1" style="width:100%;"/></td>
+                    <td rowspan="5" style="text-align: center;">8415</td>
+                    <td style="width:10%;text-align: center;">
+                        <select id="unit1" style="width:100%;">
+                            <option value="feet">Feet</option>
+                            <option value="nos">Nos</option>
+                        </select>
+                    </td>
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty1" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price1" oninput="calculateTotal()"/></td>
+                    <td><span id="total1">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="text" id="desc2" style="width:100%;"/></td>
+                    <td style="width:10%;text-align: center;">
+                        <select id="unit1" style="width:100%;">
+                            <option value="feet">Feet</option>
+                            <option value="nos">Nos</option>
+                        </select>
+                    </td>
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty2" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price2" oninput="calculateTotal()"/></td>
+                    <td><span id="total2">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><input type="text" id="desc3" style="width:100%;"/></td>
+                    <td style="width:10%;text-align: center;">
+                        <select id="unit1" style="width:100%;">
+                            <option value="feet">Feet</option>
+                            <option value="nos">Nos</option>
+                        </select>
+                    </td>
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty3" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price3" oninput="calculateTotal()"/></td>
+                    <td><span id="total3">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><input type="text" id="desc4" style="width:100%;"/></td>
+                    <td style="width:10%;text-align: center;">
+                        <select id="unit1" style="width:100%;">
+                            <option value="feet">Feet</option>
+                            <option value="nos">Nos</option>
+                        </select>
+                    </td>
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty4" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price4" oninput="calculateTotal()"/></td>
+                    <td><span id="total4">₹0</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><input type="text" id="desc5" style="width:100%;"/></td>
+                    <td style="width:10%;text-align: center;">
+                        <select id="unit1" style="width:100%;">
+                            <option value="feet">Feet</option>
+                            <option value="nos">Nos</option>
+                        </select>
+                    </td>
+                    <td style="width:10%;text-align: center;"><input type="text" id="qty5" style="width:50%;" oninput="calculateTotal()"/></td>
+                    <td style="width:10%;"><input type="number" id="price5" oninput="calculateTotal()"/></td>
+                    <td><span id="total5">₹0</span></td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <!-- Summary -->
+        <div class="summary">
+            <table>
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td><span id="subTotal">₹0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Amount In Words</strong></td>
+                    <td colspan="3" class="words-column"><strong id="amountWords">Zero rupees only</strong></td>
+                </tr>
+            </table>
+        </div>
+    
+       
+    <hr/>
+        <!-- Signature Section Side by Side -->
+        <div class="signature-section">
+            <div class="customer-sign">
+                <br>
+                For Customer:
+                <div class="signature-line">(Name, Signature & Date)</div>
+            </div>
+            <div class="company-sign">
+                For Green Zone Airconditioning:
+                <strong>Authorized Signature</strong>
+            </div>
+        </div>
+    </div>
+    <button onClick="printdiv('printable_div_id');" style="color: white;background-color: #e22b2b;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">PRINT</button>
+    <button onClick="ongst();"style="color: white;background-color: green;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">GST</button>
+  <button onClick="onQuotgst();"style="color: white;background-color: green;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">QUOT-GST</button>
+  <button onClick="noGst();"style="color: white;background-color: green;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">NON-GST</button>
+   
+    <button onclick="logout();" style="background-color: cadetblue;color: white;background-color: #04AA6D !important;border-radius: 5px;font-size: 17px;font-family: 'Source Sans Pro', sans-serif;padding: 6px 18px;">Log Out</button>
+    
+<script>
+function calculateTotal() {
+    let qty1 = document.getElementById('qty1').value || 0;
+    let price1 = document.getElementById('price1').value || 0;
+    let total1 = qty1 * price1;
+    document.getElementById('total1').textContent = `₹${total1}`;
+    
+    let qty2 = document.getElementById('qty2').value || 0;
+    let price2 = document.getElementById('price2').value || 0;
+    let total2 = qty2 * price2;
+    document.getElementById('total2').textContent = `₹${total2}`;
+    
+    let qty3 = document.getElementById('qty3').value || 0;
+    let price3 = document.getElementById('price3').value || 0;
+    let total3 = qty3 * price3;
+    document.getElementById('total3').textContent = `₹${total3}`;
+    
+    let qty4 = document.getElementById('qty4').value || 0;
+    let price4 = document.getElementById('price4').value || 0;
+    let total4 = qty4 * price4;
+    document.getElementById('total4').textContent = `₹${total4}`;
+    
+    let qty5 = document.getElementById('qty5').value || 0;
+    let price5 = document.getElementById('price5').value || 0;
+    let total5 = qty5 * price5;
+    document.getElementById('total5').textContent = `₹${total5}`;
+    
+    let subTotal = total1 + total2 + total3 + total4 + total5;
+    document.getElementById('subTotal').textContent = `₹${subTotal}`;
+    
+    convertNumberToWords(subTotal);
+}
+
+function convertNumberToWords(amount) {
+    const words = [
+        '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'
+    ];
+
+    function getWords(num) {
+        if (num === 0) return 'Zero';
+        if (num < 20) return words[num];
+        if (num < 100) return words[~~(num / 10) + 18] + (num % 10 ? ' ' + words[num % 10] : '');
+        if (num < 1000) return words[~~(num / 100)] + ' Hundred' + (num % 100 ? ' and ' + getWords(num % 100) : '');
+        if (num < 100000) return getWords(~~(num / 1000)) + ' Thousand' + (num % 1000 ? ' ' + getWords(num % 1000) : '');
+        if (num < 10000000) return getWords(~~(num / 100000)) + ' Lakh' + (num % 100000 ? ' ' + getWords(num % 100000) : '');
+        return getWords(~~(num / 10000000)) + ' Crore' + (num % 10000000 ? ' ' + getWords(num % 10000000) : '');
+    }
+
+    document.getElementById('amountWords').textContent = getWords(amount) + ' rupees only';
+}
+
+function printdiv(elem) {
+            // Get the values from the input fields
+            var invoiceNo = document.getElementById('invoiceno').value;
+            var date = document.getElementById('date').value;
+            var addressBill = document.getElementById('addressbill').value; // For textarea
+            var nameBill = document.getElementById('namebill').value;
+            var addressDelivered = document.getElementById('addressdilivered').value;
+            var nameDelivered = document.getElementById('namedilivered').value;
+
+            var desc_1 = document.getElementById('desc1').value;
+            var desc_2 = document.getElementById('desc2').value;
+            var desc_3 = document.getElementById('desc3').value;
+            var desc_4 = document.getElementById('desc4').value;
+            var desc_5 = document.getElementById('desc5').value;
+
+            var qty_1 = document.getElementById('qty1').value;
+            var qty_2 = document.getElementById('qty2').value;
+            var qty_3 = document.getElementById('qty3').value;
+            var qty_4 = document.getElementById('qty4').value;
+            var qty_5 = document.getElementById('qty5').value;
+
+            var price_1 = document.getElementById('price1').value;
+            var price_2 = document.getElementById('price2').value;
+            var price_3 = document.getElementById('price3').value;
+            var price_4 = document.getElementById('price4').value;
+            var price_5 = document.getElementById('price5').value;
+    
+            // Replace the input and textarea fields with their values in the document
+            document.getElementById('invoiceno').outerHTML = '<span>' + invoiceNo + '</span>';
+            document.getElementById('date').outerHTML = '<span>' + date + '</span>';
+            document.getElementById('addressbill').outerHTML = '<span>' + addressBill.replace(/\n/g, '<br>') + '</span>'; // handle newlines in textarea
+            document.getElementById('namebill').outerHTML = '<span>' + nameBill + '</span>';
+            document.getElementById('addressdilivered').outerHTML = '<span>' + addressDelivered + '</span>';
+            document.getElementById('namedilivered').outerHTML = '<span>' + nameDelivered + '</span>';
+
+            document.getElementById('desc1').outerHTML = '<span>' + desc_1 + '</span>';
+            document.getElementById('desc2').outerHTML = '<span>' + desc_2 + '</span>';
+            document.getElementById('desc3').outerHTML = '<span>' + desc_3 + '</span>';
+            document.getElementById('desc4').outerHTML = '<span>' + desc_4 + '</span>';
+            document.getElementById('desc5').outerHTML = '<span>' + desc_5 + '</span>';
+
+            document.getElementById('qty1').outerHTML = '<span>' + qty_1 + '</span>';
+            document.getElementById('qty2').outerHTML = '<span>' + qty_2 + '</span>';
+            document.getElementById('qty3').outerHTML = '<span>' + qty_3 + '</span>';
+            document.getElementById('qty4').outerHTML = '<span>' + qty_4 + '</span>';
+            document.getElementById('qty5').outerHTML = '<span>' + qty_5 + '</span>';
+
+            document.getElementById('price1').outerHTML = '<span>' + price_1 + '</span>';
+            document.getElementById('price2').outerHTML = '<span>' + price_2 + '</span>';
+            document.getElementById('price3').outerHTML = '<span>' + price_3 + '</span>';
+            document.getElementById('price4').outerHTML = '<span>' + price_4 + '</span>';
+            document.getElementById('price5').outerHTML = '<span>' + price_5 + '</span>';
+    
+            // Continue with the printing
+            var header_str = '<html><head><title>' + document.title + '</title></head><body>';
+            var footer_str = '</body></html>';
+            var new_str = document.getElementById(elem).innerHTML;
+            var old_str = document.body.innerHTML;
+            document.body.innerHTML = header_str + new_str + footer_str;
+            window.print();
+            document.body.innerHTML = old_str;
+            return false;
+        }
+    function ongst(){
+window.location.href = "bill.html";
+    }
+</script>
+ <script>
+        function logout() {
+            sessionStorage.clear(); // Clear session data
+            window.location.href = "index.html"; // Redirect to login page
+        }
+
+        window.onload = function() {
+            if (!sessionStorage.getItem('loggedIn')) {
+                window.location.href = "index.html"; // Redirect if not logged in
+            }
+        };
+    </script>
+</body>
+</html>
