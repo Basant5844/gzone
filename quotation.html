@@ -365,11 +365,9 @@ function convertNumberToWords(amount) {
 }
 
 function printdiv(elem) {
-    debugger;
-    // Clone the content to be printed
     var printContents = document.getElementById(elem).innerHTML;
-    
-    // Get the values from the input fields
+
+    // Get input values
     var invoiceNo = document.getElementById('invoiceno').value;
     var date = document.getElementById('date').value;
     var addressBill = document.getElementById('addressbill').value;
@@ -398,59 +396,42 @@ function printdiv(elem) {
     var price_5 = document.getElementById('price5').value;
     var price_6 = document.getElementById('price6').value;
 
-    // Get the selected unit for each row
-    var unit_1 = document.getElementById('unit1').value;
-    var unit_2 = document.getElementById('unit2').value;
-    var unit_3 = document.getElementById('unit3').value;
-    var unit_4 = document.getElementById('unit4').value;
-    var unit_5 = document.getElementById('unit5').value;
-    var unit_6 = document.getElementById('unit6').value;
+    // Replace input field values in the content for printing
+    printContents = printContents.replace(/{{invoiceNo}}/g, invoiceNo);
+    printContents = printContents.replace(/{{date}}/g, date);
+    printContents = printContents.replace(/{{addressBill}}/g, addressBill);
+    printContents = printContents.replace(/{{nameBill}}/g, nameBill);
+    printContents = printContents.replace(/{{addressDelivered}}/g, addressDelivered);
+    printContents = printContents.replace(/{{nameDelivered}}/g, nameDelivered);
 
-    // Replace input fields in the print content with their values
-    printContents = printContents.replace(/id="unit1"/g, 'value="' + unit_1 + '"');
-    printContents = printContents.replace(/id="unit2"/g, 'value="' + unit_2 + '"');
-    printContents = printContents.replace(/id="unit3"/g, 'value="' + unit_3 + '"');
-    printContents = printContents.replace(/id="unit4"/g, 'value="' + unit_4 + '"');
-    printContents = printContents.replace(/id="unit5"/g, 'value="' + unit_5 + '"');
-    printContents = printContents.replace(/id="unit6"/g, 'value="' + unit_6 + '"');
-    
-    // Replace the other inputs with their values
-    printContents = printContents.replace(/id="desc1"/g, 'value="' + desc_1 + '"');
-    printContents = printContents.replace(/id="desc2"/g, 'value="' + desc_2 + '"');
-    printContents = printContents.replace(/id="desc3"/g, 'value="' + desc_3 + '"');
-    printContents = printContents.replace(/id="desc4"/g, 'value="' + desc_4 + '"');
-    printContents = printContents.replace(/id="desc5"/g, 'value="' + desc_5 + '"');
-    printContents = printContents.replace(/id="desc6"/g, 'value="' + desc_6 + '"');
+    printContents = printContents.replace(/{{desc1}}/g, desc_1);
+    printContents = printContents.replace(/{{desc2}}/g, desc_2);
+    printContents = printContents.replace(/{{desc3}}/g, desc_3);
+    printContents = printContents.replace(/{{desc4}}/g, desc_4);
+    printContents = printContents.replace(/{{desc5}}/g, desc_5);
+    printContents = printContents.replace(/{{desc6}}/g, desc_6);
 
-    printContents = printContents.replace(/id="qty1"/g, 'value="' + qty_1 + '"');
-    printContents = printContents.replace(/id="qty2"/g, 'value="' + qty_2 + '"');
-    printContents = printContents.replace(/id="qty3"/g, 'value="' + qty_3 + '"');
-    printContents = printContents.replace(/id="qty4"/g, 'value="' + qty_4 + '"');
-    printContents = printContents.replace(/id="qty5"/g, 'value="' + qty_5 + '"');
-    printContents = printContents.replace(/id="qty6"/g, 'value="' + qty_6 + '"');
-    
-    printContents = printContents.replace(/id="price1"/g, 'value="' + price_1 + '"');
-    printContents = printContents.replace(/id="price2"/g, 'value="' + price_2 + '"');
-    printContents = printContents.replace(/id="price3"/g, 'value="' + price_3 + '"');
-    printContents = printContents.replace(/id="price4"/g, 'value="' + price_4 + '"');
-    printContents = printContents.replace(/id="price5"/g, 'value="' + price_5 + '"');
-    printContents = printContents.replace(/id="price6"/g, 'value="' + price_6 + '"');
+    printContents = printContents.replace(/{{qty1}}/g, qty_1);
+    printContents = printContents.replace(/{{qty2}}/g, qty_2);
+    printContents = printContents.replace(/{{qty3}}/g, qty_3);
+    printContents = printContents.replace(/{{qty4}}/g, qty_4);
+    printContents = printContents.replace(/{{qty5}}/g, qty_5);
+    printContents = printContents.replace(/{{qty6}}/g, qty_6);
 
-    // Now replace the image path with an appropriate one for print (if necessary)
-    var logoImage = document.querySelector('.logo img');
-    var logoSrc = logoImage ? logoImage.src : ''; // Get the source URL of the image
+    printContents = printContents.replace(/{{price1}}/g, price_1);
+    printContents = printContents.replace(/{{price2}}/g, price_2);
+    printContents = printContents.replace(/{{price3}}/g, price_3);
+    printContents = printContents.replace(/{{price4}}/g, price_4);
+    printContents = printContents.replace(/{{price5}}/g, price_5);
+    printContents = printContents.replace(/{{price6}}/g, price_6);
 
-    // Replace the image in the header for printing
-    var imgTag = '<img src="' + logoSrc + '" alt="Company Logo" style="max-width: 100%; height: auto;">';
-    printContents = printContents.replace('<div class="logo">', '<div class="logo">' + imgTag);
-
-    // Print the updated contents
+    // Open a new window and print the content
     var newWindow = window.open('', '', 'height=800, width=1000');
-    newWindow.document.write('<html><head><title>' + document.title + '</title></head><body>');
+    newWindow.document.write('<html><head><title>Invoice</title></head><body>');
     newWindow.document.write(printContents);
     newWindow.document.write('</body></html>');
-    newWindow.document.close();
-    newWindow.print();
+    newWindow.document.close(); // Necessary for printing
+    newWindow.print(); // Trigger the print dialog
 }
 
 
