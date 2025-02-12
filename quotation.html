@@ -358,7 +358,6 @@ function convertNumberToWords(amount) {
 }
 
 function printdiv(elem) {
-    debugger;
     // Get the values from the input fields
     var invoiceNo = document.getElementById('invoiceno').value;
     var date = document.getElementById('date').value;
@@ -367,45 +366,48 @@ function printdiv(elem) {
     var addressDelivered = document.getElementById('addressdilivered').value;
     var nameDelivered = document.getElementById('namedilivered').value;
 
-    var desc_1 = document.getElementById('desc1').value;
-    var desc_2 = document.getElementById('desc2').value;
-    var desc_3 = document.getElementById('desc3').value;
-    var desc_4 = document.getElementById('desc4').value;
-    var desc_5 = document.getElementById('desc5').value;
-    var desc_6 = document.getElementById('desc6').value;
+    // Get description, quantity, price, and unit for each row
+    var rows = [];
+    for (let i = 1; i <= 6; i++) {
+        let desc = document.getElementById('desc' + i).value;
+        let qty = document.getElementById('qty' + i).value;
+        let price = document.getElementById('price' + i).value;
+        let unit = document.getElementById('unit' + i).value;
+        rows.push({desc, qty, price, unit});
+    }
 
-    var qty_1 = document.getElementById('qty1').value;
-    var qty_2 = document.getElementById('qty2').value;
-    var qty_3 = document.getElementById('qty3').value;
-    var qty_4 = document.getElementById('qty4').value;
-    var qty_5 = document.getElementById('qty5').value;
-    var qty_6 = document.getElementById('qty6').value;
+    // Replace the input fields with their values in the document
+    document.getElementById('invoiceno').outerHTML = '<span>' + invoiceNo + '</span>';
+    document.getElementById('date').outerHTML = '<span>' + date + '</span>';
+    document.getElementById('addressbill').outerHTML = '<span>' + addressBill + '</span>';
+    document.getElementById('namebill').outerHTML = '<span>' + nameBill + '</span>';
+    document.getElementById('addressdilivered').outerHTML = '<span>' + addressDelivered + '</span>';
+    document.getElementById('namedilivered').outerHTML = '<span>' + nameDelivered + '</span>';
 
-    var price_1 = document.getElementById('price1').value;
-    var price_2 = document.getElementById('price2').value;
-    var price_3 = document.getElementById('price3').value;
-    var price_4 = document.getElementById('price4').value;
-    var price_5 = document.getElementById('price5').value;
-    var price_6 = document.getElementById('price6').value;
+    // Loop over rows and replace the input fields with their values
+    rows.forEach((row, index) => {
+        document.getElementById('desc' + (index + 1)).outerHTML = '<span>' + row.desc + '</span>';
+        document.getElementById('qty' + (index + 1)).outerHTML = '<span>' + row.qty + '</span>';
+        document.getElementById('price' + (index + 1)).outerHTML = '<span>' + row.price + '</span>';
+        document.getElementById('unit' + (index + 1)).outerHTML = '<span>' + row.unit + '</span>';
+    });
 
-    // Get the selected unit for each row
-    var unit_1 = document.getElementById('unit1').value;
-    var unit_2 = document.getElementById('unit2').value;
-    var unit_3 = document.getElementById('unit3').value;
-    var unit_4 = document.getElementById('unit4').value;
-    var unit_5 = document.getElementById('unit5').value;
-    var unit_6 = document.getElementById('unit6').value;
-    
-    // Replace the input and select fields with their values in the document
-    document.getElementById('unit1').outerHTML = '<span>' + unit_1 + '</span>';
-    document.getElementById('unit2').outerHTML = '<span>' + unit_2 + '</span>';
-    document.getElementById('unit3').outerHTML = '<span>' + unit_3 + '</span>';
-    document.getElementById('unit4').outerHTML = '<span>' + unit_4 + '</span>';
-    document.getElementById('unit5').outerHTML = '<span>' + unit_5 + '</span>';
-    document.getElementById('unit6').outerHTML = '<span>' + unit_6 + '</span>';
+    // Replace the total values for each row
+    for (let i = 1; i <= 6; i++) {
+        let total = document.getElementById('total' + i).textContent;
+        document.getElementById('total' + i).outerHTML = '<span>' + total + '</span>';
+    }
 
-    // Continue with the rest of the replacements...
-    
+    // Replace the subtotal and amount words
+    var subTotal = document.getElementById('subTotal').textContent;
+    var amountWords = document.getElementById('amountWords').textContent;
+    document.getElementById('subTotal').outerHTML = '<span>' + subTotal + '</span>';
+    document.getElementById('amountWords').outerHTML = '<span>' + amountWords + '</span>';
+
+    // Replace the "GST" information (if applicable)
+    var gstText = document.querySelector("p").textContent;
+    document.querySelector("p").outerHTML = '<span>' + gstText + '</span>';
+
     // Printing part
     var header_str = '<html><head><title>' + document.title + '</title></head><body>';
     var footer_str = '</body></html>';
@@ -416,6 +418,7 @@ function printdiv(elem) {
     document.body.innerHTML = old_str;
     return false;
 }
+
 
     
     function ongst(){
