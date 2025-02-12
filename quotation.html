@@ -366,6 +366,9 @@ function convertNumberToWords(amount) {
 
 function printdiv(elem) {
     debugger;
+    // Clone the content to be printed
+    var printContents = document.getElementById(elem).innerHTML;
+    
     // Get the values from the input fields
     var invoiceNo = document.getElementById('invoiceno').value;
     var date = document.getElementById('date').value;
@@ -402,34 +405,52 @@ function printdiv(elem) {
     var unit_4 = document.getElementById('unit4').value;
     var unit_5 = document.getElementById('unit5').value;
     var unit_6 = document.getElementById('unit6').value;
-    
-    // Replace the input and select fields with their values in the document
-    document.getElementById('unit1').outerHTML = '<span>' + unit_1 + '</span>';
-    document.getElementById('unit2').outerHTML = '<span>' + unit_2 + '</span>';
-    document.getElementById('unit3').outerHTML = '<span>' + unit_3 + '</span>';
-    document.getElementById('unit4').outerHTML = '<span>' + unit_4 + '</span>';
-    document.getElementById('unit5').outerHTML = '<span>' + unit_5 + '</span>';
-    document.getElementById('unit6').outerHTML = '<span>' + unit_6 + '</span>';
 
-    // Ensure image is included in print
+    // Replace input fields in the print content with their values
+    printContents = printContents.replace(/id="unit1"/g, 'value="' + unit_1 + '"');
+    printContents = printContents.replace(/id="unit2"/g, 'value="' + unit_2 + '"');
+    printContents = printContents.replace(/id="unit3"/g, 'value="' + unit_3 + '"');
+    printContents = printContents.replace(/id="unit4"/g, 'value="' + unit_4 + '"');
+    printContents = printContents.replace(/id="unit5"/g, 'value="' + unit_5 + '"');
+    printContents = printContents.replace(/id="unit6"/g, 'value="' + unit_6 + '"');
+    
+    // Replace the other inputs with their values
+    printContents = printContents.replace(/id="desc1"/g, 'value="' + desc_1 + '"');
+    printContents = printContents.replace(/id="desc2"/g, 'value="' + desc_2 + '"');
+    printContents = printContents.replace(/id="desc3"/g, 'value="' + desc_3 + '"');
+    printContents = printContents.replace(/id="desc4"/g, 'value="' + desc_4 + '"');
+    printContents = printContents.replace(/id="desc5"/g, 'value="' + desc_5 + '"');
+    printContents = printContents.replace(/id="desc6"/g, 'value="' + desc_6 + '"');
+
+    printContents = printContents.replace(/id="qty1"/g, 'value="' + qty_1 + '"');
+    printContents = printContents.replace(/id="qty2"/g, 'value="' + qty_2 + '"');
+    printContents = printContents.replace(/id="qty3"/g, 'value="' + qty_3 + '"');
+    printContents = printContents.replace(/id="qty4"/g, 'value="' + qty_4 + '"');
+    printContents = printContents.replace(/id="qty5"/g, 'value="' + qty_5 + '"');
+    printContents = printContents.replace(/id="qty6"/g, 'value="' + qty_6 + '"');
+    
+    printContents = printContents.replace(/id="price1"/g, 'value="' + price_1 + '"');
+    printContents = printContents.replace(/id="price2"/g, 'value="' + price_2 + '"');
+    printContents = printContents.replace(/id="price3"/g, 'value="' + price_3 + '"');
+    printContents = printContents.replace(/id="price4"/g, 'value="' + price_4 + '"');
+    printContents = printContents.replace(/id="price5"/g, 'value="' + price_5 + '"');
+    printContents = printContents.replace(/id="price6"/g, 'value="' + price_6 + '"');
+
+    // Now replace the image path with an appropriate one for print (if necessary)
     var logoImage = document.querySelector('.logo img');
     var logoSrc = logoImage ? logoImage.src : ''; // Get the source URL of the image
 
-    // Replace the image path with an appropriate one for print (if necessary)
+    // Replace the image in the header for printing
     var imgTag = '<img src="' + logoSrc + '" alt="Company Logo" style="max-width: 100%; height: auto;">';
+    printContents = printContents.replace('<div class="logo">', '<div class="logo">' + imgTag);
 
-    // Now replace the image in the header with the tag that will display it when printed
-    document.querySelector('.logo').innerHTML = imgTag;
-
-    // Printing part
-    var header_str = '<html><head><title>' + document.title + '</title></head><body>';
-    var footer_str = '</body></html>';
-    var new_str = document.getElementById(elem).innerHTML;
-    var old_str = document.body.innerHTML;
-    document.body.innerHTML = header_str + new_str + footer_str;
-    window.print();
-    document.body.innerHTML = old_str;
-    return false;
+    // Print the updated contents
+    var newWindow = window.open('', '', 'height=800, width=1000');
+    newWindow.document.write('<html><head><title>' + document.title + '</title></head><body>');
+    newWindow.document.write(printContents);
+    newWindow.document.write('</body></html>');
+    newWindow.document.close();
+    newWindow.print();
 }
 
 
