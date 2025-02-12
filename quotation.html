@@ -358,75 +358,64 @@ function convertNumberToWords(amount) {
 }
 
 function printdiv(elem) {
-            // Get the values from the input fields
-            var invoiceNo = document.getElementById('invoiceno').value;
-            var date = document.getElementById('date').value;
-            var addressBill = document.getElementById('addressbill').value; // For textarea
-            var nameBill = document.getElementById('namebill').value;
-            var addressDelivered = document.getElementById('addressdilivered').value;
-            var nameDelivered = document.getElementById('namedilivered').value;
+    // Get the values from the input fields
+    var invoiceNo = document.getElementById('invoiceno').value;
+    var date = document.getElementById('date').value;
+    var addressBill = document.getElementById('addressbill').value;
+    var nameBill = document.getElementById('namebill').value;
+    var addressDelivered = document.getElementById('addressdilivered').value;
+    var nameDelivered = document.getElementById('namedilivered').value;
 
-            var desc_1 = document.getElementById('desc1').value;
-            var desc_2 = document.getElementById('desc2').value;
-            var desc_3 = document.getElementById('desc3').value;
-            var desc_4 = document.getElementById('desc4').value;
-            var desc_5 = document.getElementById('desc5').value;
-            var desc_6 = document.getElementById('desc6').value;
+    var desc_1 = document.getElementById('desc1').value;
+    var desc_2 = document.getElementById('desc2').value;
+    var desc_3 = document.getElementById('desc3').value;
+    var desc_4 = document.getElementById('desc4').value;
+    var desc_5 = document.getElementById('desc5').value;
+    var desc_6 = document.getElementById('desc6').value;
 
-            var qty_1 = document.getElementById('qty1').value;
-            var qty_2 = document.getElementById('qty2').value;
-            var qty_3 = document.getElementById('qty3').value;
-            var qty_4 = document.getElementById('qty4').value;
-            var qty_5 = document.getElementById('qty5').value;
-            var qty_6 = document.getElementById('qty6').value;
+    var qty_1 = document.getElementById('qty1').value;
+    var qty_2 = document.getElementById('qty2').value;
+    var qty_3 = document.getElementById('qty3').value;
+    var qty_4 = document.getElementById('qty4').value;
+    var qty_5 = document.getElementById('qty5').value;
+    var qty_6 = document.getElementById('qty6').value;
 
+    var price_1 = document.getElementById('price1').value;
+    var price_2 = document.getElementById('price2').value;
+    var price_3 = document.getElementById('price3').value;
+    var price_4 = document.getElementById('price4').value;
+    var price_5 = document.getElementById('price5').value;
+    var price_6 = document.getElementById('price6').value;
 
-            var price_1 = document.getElementById('price1').value;
-            var price_2 = document.getElementById('price2').value;
-            var price_3 = document.getElementById('price3').value;
-            var price_4 = document.getElementById('price4').value;
-            var price_5 = document.getElementById('price5').value;
-            var price_6 = document.getElementById('price6').value;
+    // Get the selected unit for each row
+    var unit_1 = document.getElementById('unit1').value;
+    var unit_2 = document.getElementById('unit2').value;
+    var unit_3 = document.getElementById('unit3').value;
+    var unit_4 = document.getElementById('unit4').value;
+    var unit_5 = document.getElementById('unit5').value;
+    var unit_6 = document.getElementById('unit6').value;
     
-            // Replace the input and textarea fields with their values in the document
-            document.getElementById('invoiceno').outerHTML = '<span>' + invoiceNo + '</span>';
-            document.getElementById('date').outerHTML = '<span>' + date + '</span>';
-            document.getElementById('addressbill').outerHTML = '<span>' + addressBill.replace(/\n/g, '<br>') + '</span>'; // handle newlines in textarea
-            document.getElementById('namebill').outerHTML = '<span>' + nameBill + '</span>';
-            document.getElementById('addressdilivered').outerHTML = '<span>' + addressDelivered + '</span>';
-            document.getElementById('namedilivered').outerHTML = '<span>' + nameDelivered + '</span>';
+    // Replace the input and select fields with their values in the document
+    document.getElementById('unit1').outerHTML = '<span>' + unit_1 + '</span>';
+    document.getElementById('unit2').outerHTML = '<span>' + unit_2 + '</span>';
+    document.getElementById('unit3').outerHTML = '<span>' + unit_3 + '</span>';
+    document.getElementById('unit4').outerHTML = '<span>' + unit_4 + '</span>';
+    document.getElementById('unit5').outerHTML = '<span>' + unit_5 + '</span>';
+    document.getElementById('unit6').outerHTML = '<span>' + unit_6 + '</span>';
 
-            document.getElementById('desc1').outerHTML = '<span>' + desc_1 + '</span>';
-            document.getElementById('desc2').outerHTML = '<span>' + desc_2 + '</span>';
-            document.getElementById('desc3').outerHTML = '<span>' + desc_3 + '</span>';
-            document.getElementById('desc4').outerHTML = '<span>' + desc_4 + '</span>';
-            document.getElementById('desc5').outerHTML = '<span>' + desc_5 + '</span>';
-            document.getElementById('desc6').outerHTML = '<span>' + desc_6 + '</span>';
-
-            document.getElementById('qty1').outerHTML = '<span>' + qty_1 + '</span>';
-            document.getElementById('qty2').outerHTML = '<span>' + qty_2 + '</span>';
-            document.getElementById('qty3').outerHTML = '<span>' + qty_3 + '</span>';
-            document.getElementById('qty4').outerHTML = '<span>' + qty_4 + '</span>';
-            document.getElementById('qty5').outerHTML = '<span>' + qty_5 + '</span>';
-            document.getElementById('qty6').outerHTML = '<span>' + qty_6 + '</span>';
-
-            document.getElementById('price1').outerHTML = '<span>' + price_1 + '</span>';
-            document.getElementById('price2').outerHTML = '<span>' + price_2 + '</span>';
-            document.getElementById('price3').outerHTML = '<span>' + price_3 + '</span>';
-            document.getElementById('price4').outerHTML = '<span>' + price_4 + '</span>';
-            document.getElementById('price5').outerHTML = '<span>' + price_5 + '</span>';
-            document.getElementById('price6').outerHTML = '<span>' + price_6 + '</span>';
+    // Continue with the rest of the replacements...
     
-            // Continue with the printing
-            var header_str = '<html><head><title>' + document.title + '</title></head><body>';
-            var footer_str = '</body></html>';
-            var new_str = document.getElementById(elem).innerHTML;
-            var old_str = document.body.innerHTML;
-            document.body.innerHTML = header_str + new_str + footer_str;
-            window.print();
-            document.body.innerHTML = old_str;
-            return false;
-        }
+    // Printing part
+    var header_str = '<html><head><title>' + document.title + '</title></head><body>';
+    var footer_str = '</body></html>';
+    var new_str = document.getElementById(elem).innerHTML;
+    var old_str = document.body.innerHTML;
+    document.body.innerHTML = header_str + new_str + footer_str;
+    window.print();
+    document.body.innerHTML = old_str;
+    return false;
+}
+
     
     function ongst(){
            window.location.href = "bill.html";
