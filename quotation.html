@@ -365,74 +365,68 @@ function convertNumberToWords(amount) {
 }
 
 function printdiv(elem) {
-    var printContents = document.getElementById(elem).innerHTML;
+            // Get the values from the input fields
+            var invoiceNo = document.getElementById('invoiceno').value;
+            var date = document.getElementById('date').value;
+            var addressBill = document.getElementById('addressbill').value; // For textarea
+            var nameBill = document.getElementById('namebill').value;
+            var addressDelivered = document.getElementById('addressdilivered').value;
+            var nameDelivered = document.getElementById('namedilivered').value;
 
-    // Get input values
-    var invoiceNo = document.getElementById('invoiceno').value;
-    var date = document.getElementById('date').value;
-    var addressBill = document.getElementById('addressbill').value;
-    var nameBill = document.getElementById('namebill').value;
-    var addressDelivered = document.getElementById('addressdilivered').value;
-    var nameDelivered = document.getElementById('namedilivered').value;
+            var desc_1 = document.getElementById('desc1').value;
+            var desc_2 = document.getElementById('desc2').value;
+            var desc_3 = document.getElementById('desc3').value;
+            var desc_4 = document.getElementById('desc4').value;
+            var desc_5 = document.getElementById('desc5').value;
 
-    var desc_1 = document.getElementById('desc1').value;
-    var desc_2 = document.getElementById('desc2').value;
-    var desc_3 = document.getElementById('desc3').value;
-    var desc_4 = document.getElementById('desc4').value;
-    var desc_5 = document.getElementById('desc5').value;
-    var desc_6 = document.getElementById('desc6').value;
+            var qty_1 = document.getElementById('qty1').value;
+            var qty_2 = document.getElementById('qty2').value;
+            var qty_3 = document.getElementById('qty3').value;
+            var qty_4 = document.getElementById('qty4').value;
+            var qty_5 = document.getElementById('qty5').value;
 
-    var qty_1 = document.getElementById('qty1').value;
-    var qty_2 = document.getElementById('qty2').value;
-    var qty_3 = document.getElementById('qty3').value;
-    var qty_4 = document.getElementById('qty4').value;
-    var qty_5 = document.getElementById('qty5').value;
-    var qty_6 = document.getElementById('qty6').value;
+            var price_1 = document.getElementById('price1').value;
+            var price_2 = document.getElementById('price2').value;
+            var price_3 = document.getElementById('price3').value;
+            var price_4 = document.getElementById('price4').value;
+            var price_5 = document.getElementById('price5').value;
+    
+            // Replace the input and textarea fields with their values in the document
+            document.getElementById('invoiceno').outerHTML = '<span>' + invoiceNo + '</span>';
+            document.getElementById('date').outerHTML = '<span>' + date + '</span>';
+            document.getElementById('addressbill').outerHTML = '<span>' + addressBill.replace(/\n/g, '<br>') + '</span>'; // handle newlines in textarea
+            document.getElementById('namebill').outerHTML = '<span>' + nameBill + '</span>';
+            document.getElementById('addressdilivered').outerHTML = '<span>' + addressDelivered + '</span>';
+            document.getElementById('namedilivered').outerHTML = '<span>' + nameDelivered + '</span>';
 
-    var price_1 = document.getElementById('price1').value;
-    var price_2 = document.getElementById('price2').value;
-    var price_3 = document.getElementById('price3').value;
-    var price_4 = document.getElementById('price4').value;
-    var price_5 = document.getElementById('price5').value;
-    var price_6 = document.getElementById('price6').value;
+            document.getElementById('desc1').outerHTML = '<span>' + desc_1 + '</span>';
+            document.getElementById('desc2').outerHTML = '<span>' + desc_2 + '</span>';
+            document.getElementById('desc3').outerHTML = '<span>' + desc_3 + '</span>';
+            document.getElementById('desc4').outerHTML = '<span>' + desc_4 + '</span>';
+            document.getElementById('desc5').outerHTML = '<span>' + desc_5 + '</span>';
 
-    // Replace input field values in the content for printing
-    printContents = printContents.replace(/{{invoiceNo}}/g, invoiceNo);
-    printContents = printContents.replace(/{{date}}/g, date);
-    printContents = printContents.replace(/{{addressBill}}/g, addressBill);
-    printContents = printContents.replace(/{{nameBill}}/g, nameBill);
-    printContents = printContents.replace(/{{addressDelivered}}/g, addressDelivered);
-    printContents = printContents.replace(/{{nameDelivered}}/g, nameDelivered);
+            document.getElementById('qty1').outerHTML = '<span>' + qty_1 + '</span>';
+            document.getElementById('qty2').outerHTML = '<span>' + qty_2 + '</span>';
+            document.getElementById('qty3').outerHTML = '<span>' + qty_3 + '</span>';
+            document.getElementById('qty4').outerHTML = '<span>' + qty_4 + '</span>';
+            document.getElementById('qty5').outerHTML = '<span>' + qty_5 + '</span>';
 
-    printContents = printContents.replace(/{{desc1}}/g, desc_1);
-    printContents = printContents.replace(/{{desc2}}/g, desc_2);
-    printContents = printContents.replace(/{{desc3}}/g, desc_3);
-    printContents = printContents.replace(/{{desc4}}/g, desc_4);
-    printContents = printContents.replace(/{{desc5}}/g, desc_5);
-    printContents = printContents.replace(/{{desc6}}/g, desc_6);
-
-    printContents = printContents.replace(/{{qty1}}/g, qty_1);
-    printContents = printContents.replace(/{{qty2}}/g, qty_2);
-    printContents = printContents.replace(/{{qty3}}/g, qty_3);
-    printContents = printContents.replace(/{{qty4}}/g, qty_4);
-    printContents = printContents.replace(/{{qty5}}/g, qty_5);
-    printContents = printContents.replace(/{{qty6}}/g, qty_6);
-
-    printContents = printContents.replace(/{{price1}}/g, price_1);
-    printContents = printContents.replace(/{{price2}}/g, price_2);
-    printContents = printContents.replace(/{{price3}}/g, price_3);
-    printContents = printContents.replace(/{{price4}}/g, price_4);
-    printContents = printContents.replace(/{{price5}}/g, price_5);
-    printContents = printContents.replace(/{{price6}}/g, price_6);
-
-    // Open a new window and print the content
-    var newWindow = window.open('', '', 'height=800, width=1000');
-    newWindow.document.write('<html><head><title>Invoice</title></head><body>');
-    newWindow.document.write(printContents);
-    newWindow.document.write('</body></html>');
-    newWindow.document.close(); // Necessary for printing
-    newWindow.print(); // Trigger the print dialog
-}
+            document.getElementById('price1').outerHTML = '<span>' + price_1 + '</span>';
+            document.getElementById('price2').outerHTML = '<span>' + price_2 + '</span>';
+            document.getElementById('price3').outerHTML = '<span>' + price_3 + '</span>';
+            document.getElementById('price4').outerHTML = '<span>' + price_4 + '</span>';
+            document.getElementById('price5').outerHTML = '<span>' + price_5 + '</span>';
+    
+            // Continue with the printing
+            var header_str = '<html><head><title>' + document.title + '</title></head><body>';
+            var footer_str = '</body></html>';
+            var new_str = document.getElementById(elem).innerHTML;
+            var old_str = document.body.innerHTML;
+            document.body.innerHTML = header_str + new_str + footer_str;
+            window.print();
+            document.body.innerHTML = old_str;
+            return false;
+        }
 
 
     
