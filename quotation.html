@@ -79,21 +79,21 @@
             display: block;
             margin-bottom: 5px;
         }
-        .signature-section {
+/*         .signature-section {
             display: flex;
             justify-content: space-between;
             margin-top: -14px;
             font-size: 12px;
-        }
-        .customer-sign, .company-sign {
+        } */
+/*         .customer-sign, .company-sign {
             width: 45%;
             text-align: center;
             margin-top: 10px;
-        }
-        .company-sign strong {
+        } */
+/*         .company-sign strong {
             display: block;
             margin-top: 10px;
-        }
+        } */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -117,6 +117,52 @@
             font-size: 22px;
             color:blue;
         }
+
+        /*sign basant*/
+        .signature-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    border-top: 1px solid #000; /* Added border for clarity */
+    padding-top: 10px;
+}
+
+.customer-sign, .company-sign {
+    width: 45%;
+    text-align: center;
+}
+
+.signature-line {
+    margin-top: 20px;
+    font-style: italic;
+    color: #555;
+    border-top: 1px solid #000;
+    padding-top: 5px;
+}
+
+.company-sign img {
+    display: block;
+    margin-top: 10px;
+    width: 150px; /* Adjust for a better fit */
+    height: auto;
+    max-width: 100%;
+}
+
+.company-sign strong {
+    display: block;
+    margin-top: 5px;
+}
+
+/* Ensure image is visible on print */
+@media print {
+    .company-sign img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
         /* Add this to your CSS to ensure the image is visible on print */
   @media print {
     img {
