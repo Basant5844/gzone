@@ -249,11 +249,15 @@
         <div class="summary">
             <table>
                 <tr>
-    <td colspan="3"><strong>Paid By Customer</strong></td>
-    <td><input type="number" id="paidByCustomer" value="0" oninput="calculateTotal()" /></td>
-</tr>
-                <tr>
                     <td colspan="3"><strong>Total</strong></td>
+                    <td><span id="puraTotal">₹0</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Paid By Customer</strong></td>
+                    <td><input type="number" id="paidByCustomer" value="0" oninput="calculateTotal()" /></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><strong>Grand Total</strong></td>
                     <td><span id="subTotal">₹0</span></td>
                 </tr>
                 <tr>
@@ -322,16 +326,18 @@ function calculateTotal() {
     document.getElementById('total5').textContent = `₹${total5}`;
     
     // Calculate the subtotal by adding all the item totals
-    let subTotal = total1 + total2 + total3 + total4 + total5;
-    document.getElementById('subTotal').textContent = `₹${subTotal}`;
+    let puraTotal = total1 + total2 + total3 + total4 + total5;
+    document.getElementById('puraTotal').textContent = `₹${puraTotal}`;
 
     // Get the paid by customer value, and subtract it from the subtotal
     let paidByCustomer = parseFloat(document.getElementById('paidByCustomer').value) || 0;
     let remainingTotal = subTotal - paidByCustomer;
-
+if(paidByCustomer < 0){
     // Update the "Paid By Customer" and "Remaining Total" fields
     document.getElementById('subTotal').textContent = `₹${remainingTotal}`;
-
+}else{
+document.getElementById('subTotal').textContent = `₹${puraTotal}`;
+}
     // Convert the remaining total into words
     convertNumberToWords(remainingTotal);
 }
