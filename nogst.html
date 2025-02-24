@@ -249,9 +249,9 @@
         <div class="summary">
             <table>
                 <tr>
-                    <td colspan="3"><strong>Paid By Customer</strong></td>
-                    <td><input type="number" id="paidByCustomer" value="0" onchange="calculateTotal()" /></td>
-                </tr>
+    <td colspan="3"><strong>Paid By Customer</strong></td>
+    <td><input type="number" id="paidByCustomer" value="0" onchange="calculateTotal()" /></td>
+</tr>
                 <tr>
                     <td colspan="3"><strong>Total</strong></td>
                     <td><span id="subTotal">₹0</span></td>
@@ -290,41 +290,49 @@
     
 <script>
 function calculateTotal() {
+    // Retrieve values for the first set of items
     let qty1 = document.getElementById('qty1').value || 0;
     let price1 = document.getElementById('price1').value || 0;
     let total1 = qty1 * price1;
     document.getElementById('total1').textContent = `₹${total1}`;
     
+    // For the second item
     let qty2 = document.getElementById('qty2').value || 0;
     let price2 = document.getElementById('price2').value || 0;
     let total2 = qty2 * price2;
     document.getElementById('total2').textContent = `₹${total2}`;
     
+    // For the third item
     let qty3 = document.getElementById('qty3').value || 0;
     let price3 = document.getElementById('price3').value || 0;
     let total3 = qty3 * price3;
     document.getElementById('total3').textContent = `₹${total3}`;
     
+    // For the fourth item
     let qty4 = document.getElementById('qty4').value || 0;
     let price4 = document.getElementById('price4').value || 0;
     let total4 = qty4 * price4;
     document.getElementById('total4').textContent = `₹${total4}`;
     
+    // For the fifth item
     let qty5 = document.getElementById('qty5').value || 0;
     let price5 = document.getElementById('price5').value || 0;
     let total5 = qty5 * price5;
     document.getElementById('total5').textContent = `₹${total5}`;
     
+    // Calculate the subtotal by adding all the item totals
     let subTotal = total1 + total2 + total3 + total4 + total5;
     document.getElementById('subTotal').textContent = `₹${subTotal}`;
-    
+
     // Get the paid by customer value, and subtract it from the subtotal
     let paidByCustomer = parseFloat(document.getElementById('paidByCustomer').value) || 0;
     let remainingTotal = subTotal - paidByCustomer;
 
     // Update the "Paid By Customer" and "Remaining Total" fields
     document.getElementById('cus_Total').textContent = `₹${remainingTotal}`;
-    convertNumberToWords(subTotal);
+
+    // Convert the remaining total into words
+    convertNumberToWords(remainingTotal);
 }
 
 function convertNumberToWords(amount) {
