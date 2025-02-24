@@ -249,6 +249,10 @@
         <div class="summary">
             <table>
                 <tr>
+                    <td colspan="3"><strong>Paid By Customer</strong></td>
+                    <td><span id="cus_Total">₹0</span></td>
+                </tr>
+                <tr>
                     <td colspan="3"><strong>Total</strong></td>
                     <td><span id="subTotal">₹0</span></td>
                 </tr>
@@ -314,6 +318,10 @@ function calculateTotal() {
     let subTotal = total1 + total2 + total3 + total4 + total5;
     document.getElementById('subTotal').textContent = `₹${subTotal}`;
     
+    // Get the paid by customer value and subtract it from the total
+    let paidByCustomer = document.getElementById('paidByCustomer').value || 0;
+    let amountLeft = subTotal - paidByCustomer;
+    document.getElementById('cus_Total').textContent = `₹${amountLeft}`;
     convertNumberToWords(subTotal);
 }
 
