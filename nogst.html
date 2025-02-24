@@ -318,10 +318,12 @@ function calculateTotal() {
     let subTotal = total1 + total2 + total3 + total4 + total5;
     document.getElementById('subTotal').textContent = `₹${subTotal}`;
     
-    // Get the paid by customer value and subtract it from the total
-    let paidByCustomer = document.getElementById('paidByCustomer').value || 0;
-    let amountLeft = subTotal - paidByCustomer;
-    document.getElementById('cus_Total').textContent = `₹${amountLeft}`;
+    // Get the paid by customer value, and subtract it from the subtotal
+    let paidByCustomer = parseFloat(document.getElementById('paidByCustomer').value) || 0;
+    let remainingTotal = subTotal - paidByCustomer;
+
+    // Update the "Paid By Customer" and "Remaining Total" fields
+    document.getElementById('cus_Total').textContent = `₹${remainingTotal}`;
     convertNumberToWords(subTotal);
 }
 
