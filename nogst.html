@@ -330,7 +330,7 @@ function calculateTotal() {
     let remainingTotal = subTotal - paidByCustomer;
 
     // Update the "Paid By Customer" and "Remaining Total" fields
-    document.getElementById('cus_Total').textContent = `₹${remainingTotal}`;
+    document.getElementById('subTotal').textContent = `₹${remainingTotal}`;
 
     // Convert the remaining total into words
     convertNumberToWords(remainingTotal);
