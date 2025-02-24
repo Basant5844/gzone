@@ -331,7 +331,7 @@ function calculateTotal() {
 
     // Get the paid by customer value, and subtract it from the subtotal
     let paidByCustomer = parseFloat(document.getElementById('paidByCustomer').value) || 0;
-    let remainingTotal = subTotal - paidByCustomer;
+    let remainingTotal = puraTotal - paidByCustomer;
 if(paidByCustomer > 0){
     // Update the "Paid By Customer" and "Remaining Total" fields
     document.getElementById('subTotal').textContent = `₹${remainingTotal}`;
